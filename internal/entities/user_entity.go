@@ -4,10 +4,10 @@ import "gorm.io/gorm"
 
 type User struct {
 	gorm.Model
-	ID       uint   `gorm:"primary_key"`
-	Username string `gorm:"unique"`
-	Password string `gorm:"not null"`
-	Role     string
+	ID       uint   `gorm:"primary_key" json:"id"`
+	Username string `gorm:"unique" json:"username"`
+	Password string `gorm:"not null" json:"password"`
+	Role     string `json:"role"`
 }
 
 type UserInput struct {

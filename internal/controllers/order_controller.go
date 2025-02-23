@@ -32,6 +32,7 @@ func (o *OrderHandler) CreateNewOrder(c *gin.Context) {
 
 	if c.Param("type") != "receive" && c.Param("type") != "ship" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "type must be 'receive' or 'ship'"})
+		return
 	}
 
 	input.Status = "pending"

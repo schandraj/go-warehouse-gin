@@ -44,11 +44,13 @@ func (h *UserHandler) Register(c *gin.Context) {
 
 	if input.Role != "admin" && input.Role != "staff" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid role"})
+		return
 	}
 
 	hashPass, err := utils.HashPassword(input.Password)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
 	}
 
 	data.Password = hashPass
@@ -71,6 +73,7 @@ func (h *UserHandler) Login(c *gin.Context) {
 
 	if err := c.ShouldBind(&request); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 
 	token, err := h.uc.Login(c, request.Username, request.Password)
